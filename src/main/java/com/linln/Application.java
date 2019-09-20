@@ -30,10 +30,6 @@ public class Application {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = SpringApplication.run(Application.class, args);
-        GuserRepository guserRepository = applicationContext.getBean(GuserRepository.class);
-
-        RedisTemplate redisTemplate = (RedisTemplate)applicationContext.getBean("redisTemplate");
-        //redisTemplate.opsForValue().set("guser",new Guser());
         
     }
 }

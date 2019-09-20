@@ -3,11 +3,14 @@ package com.linln.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.linln.config.GetHttpSessionConfigurator;
+import com.linln.domain.GameRoom;
 import com.linln.domain.Guser;
+import com.linln.service.jpa.GameRoomRepository;
 import com.linln.service.jpa.GuserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.json.GsonJsonParser;
 import org.springframework.context.ApplicationContext;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -24,7 +27,7 @@ import java.util.Map;
 public class WebSocketService  {
 
     private String userid;
-
+    private GameRoomRepository gameRoomRepository;
     private Session session;
     private HttpSession httpSession;
 
@@ -46,16 +49,17 @@ public class WebSocketService  {
         if(httpSession != null){
             ApplicationContext app = WebApplicationContextUtils.getRequiredWebApplicationContext(httpSession.getServletContext());
             GuserRepository guserRepository = app.getBean(GuserRepository.class);
+            RedisTemplate redisTemplate = app.getBean("redisTemplate",RedisTemplate.class);
+            gameRoomRepository = app.getBean(GameRoomRepository.class);
             Guser guser = guserRepository.findGuserById(userid);
             session.getAsyncRemote().sendText(JSON.toJSONString(guser));
-
         }
     }
     /**
      * 连接关闭调用的方法
      */
     @OnClose
-    public void onClose() {
+    public void onClose(Session session) {
         System.out.println("有一连接关闭");
     }
 
@@ -67,6 +71,11 @@ public class WebSocketService  {
     @OnMessage
     public void onMessage(String userid , Session session) {
         System.out.println("来自创建房间的消息:" + userid);
+        GameRoom gameRoom = new GameRoom();
+        gameRoom.setCreaterId(userid);
+        gameRoomRepository.save(gameRoom);
+        session.getAsyncRemote().sendText(JSON.toJSONString(gameRoom));
+        System.out.println("用户数据已经保存");
 
     }
 

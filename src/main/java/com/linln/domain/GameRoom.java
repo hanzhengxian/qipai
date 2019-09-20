@@ -1,13 +1,12 @@
 package com.linln.domain;
 
+import com.linln.util.RandomNbUtils;
 import com.linln.util.UUIDUtils;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import java.util.*;
 import java.util.Date;
-import java.util.Map;
-import java.util.Date;
-import java.util.Map;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,15 +24,32 @@ import org.hibernate.annotations.GenericGenerator;
  */
 
 @Data
+@Entity
+@Table(name = "qp_gameRoom")
 public class GameRoom {
 
+    @Id
+    @Column(name = "id")
     private String id = UUIDUtils.create() + "";
-    private String name ;
-    private String code ;
+//    private String name ;
+//    private String code ;
     /**
-     * 房间ID，房卡游戏的 房间ID是 6位数字，其他为 UUID
+     * 房间ID，房卡游戏的 房间ID是 6位数字，其他为 UUID,通过房间id进入房间
      */
-    private String roomid;
+    @Column(name = "roomid")
+    private String roomid = RandomNbUtils.getRandomNumber();
+    /**
+     * 房间的创建人
+     */
+    @Column(name = "createrid")
+    private String createrId;
+
+    //玩家集合
+    private ArrayList<Guser> guserList;
+    /**
+     * 最大游戏人数
+     */
+    private int players;
     /**
      * 是否比赛房间
      */
@@ -73,10 +89,7 @@ public class GameRoom {
      * 游戏类型 ： 麻将：地主：德州
      */
     private String game;
-    /**
-     * 最大游戏人数
-     */
-    private int players;
+
     /**
      * 发牌数量
      */
@@ -109,10 +122,7 @@ public class GameRoom {
      * 已完局数
      */
     private int currentnum;
-    /**
-     * 房间的创建人
-     */
-    private Guser masterUser;
+
     /**
      * 房间玩法
      */
