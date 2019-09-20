@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="admin (1)" />
+        <module name="beimi" />
+        <module name="common (1)" />
+        <module name="qipai" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="actionLog" target="1.8" />
+      <module name="admin" target="1.8" />
+      <module name="common" target="1.8" />
+      <module name="component" target="1.8" />
+      <module name="developTools" target="1.8" />
+      <module name="devtools" target="1.8" />
+      <module name="excel" target="1.8" />
+      <module name="fileUpload" target="1.8" />
+      <module name="jwt" target="1.8" />
+      <module name="linli" target="1.5" />
+      <module name="modules" target="1.8" />
+      <module name="shiro" target="1.8" />
+      <module name="system" target="1.8" />
+      <module name="thymeleaf" target="1.8" />
+      <module name="timo" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

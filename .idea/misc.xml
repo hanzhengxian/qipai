@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/../beimi" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../beimi/pom.xml" />
+        <option value="E:/Timo/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="E:/Timo/admin/pom.xml" />
+        <option value="E:/Timo/common/pom.xml" />
+        <option value="E:/Timo/component/actionLog/pom.xml" />
+        <option value="E:/Timo/component/excel/pom.xml" />
+        <option value="E:/Timo/component/fileUpload/pom.xml" />
+        <option value="E:/Timo/component/jwt/pom.xml" />
+        <option value="E:/Timo/component/pom.xml" />
+        <option value="E:/Timo/component/shiro/pom.xml" />
+        <option value="E:/Timo/component/thymeleaf/pom.xml" />
+        <option value="E:/Timo/devtools/pom.xml" />
+        <option value="E:/Timo/modules/pom.xml" />
+        <option value="E:/Timo/modules/system/pom.xml" />
+        <option value="E:/Timo/pom.xml" />
+        <option value="$PROJECT_DIR$/common/pom.xml" />
+        <option value="$PROJECT_DIR$/developTools/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>
