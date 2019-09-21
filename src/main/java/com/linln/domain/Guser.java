@@ -29,6 +29,11 @@ public class Guser {
     @Column(name = "city")
     private String city;
 
+    @Column(name = "comm")
+    private int comm ;
+
+
+
     @Override
     public String toString() {
         return "Guser{" +

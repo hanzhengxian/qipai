@@ -20,6 +20,7 @@ import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 
 @ServerEndpoint(value = "/websocket",configurator= GetHttpSessionConfigurator.class)
@@ -28,8 +29,13 @@ public class WebSocketService  {
 
     private String userid;
     private GameRoomRepository gameRoomRepository;
+    private RedisTemplate redisTemplate;
     private Session session;
     private HttpSession httpSession;
+
+    //concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。
+    private static CopyOnWriteArraySet<WebSocketService> webSocketSet = new CopyOnWriteArraySet<WebSocketService>();
+
 
 
 
@@ -40,8 +46,8 @@ public class WebSocketService  {
      */
     @OnOpen
     public void onOpen(Session session,EndpointConfig config) {
-
-        System.out.println(this);
+        this.session = session;
+        webSocketSet.add(this);
         String userid = session.getQueryString();
         System.out.println(userid);
         System.out.println("连接成功");
@@ -49,7 +55,7 @@ public class WebSocketService  {
         if(httpSession != null){
             ApplicationContext app = WebApplicationContextUtils.getRequiredWebApplicationContext(httpSession.getServletContext());
             GuserRepository guserRepository = app.getBean(GuserRepository.class);
-            RedisTemplate redisTemplate = app.getBean("redisTemplate",RedisTemplate.class);
+            //redisTemplate = app.getBean("redisTemplate",RedisTemplate.class);
             gameRoomRepository = app.getBean(GameRoomRepository.class);
             Guser guser = guserRepository.findGuserById(userid);
             session.getAsyncRemote().sendText(JSON.toJSONString(guser));
@@ -60,7 +66,9 @@ public class WebSocketService  {
      */
     @OnClose
     public void onClose(Session session) {
+        webSocketSet.remove(this);
         System.out.println("有一连接关闭");
+
     }
 
     /**
@@ -73,7 +81,9 @@ public class WebSocketService  {
         System.out.println("来自创建房间的消息:" + userid);
         GameRoom gameRoom = new GameRoom();
         gameRoom.setCreaterId(userid);
-        gameRoomRepository.save(gameRoom);
+        gameRoom.setComm(5);
+        //gameRoomRepository.save(gameRoom);
+        //redisTemplate.boundHashOps("gameRoom").put(gameRoom.getRoomid(),gameRoom);
         session.getAsyncRemote().sendText(JSON.toJSONString(gameRoom));
         System.out.println("用户数据已经保存");
 

@@ -44,6 +44,9 @@ public class GameRoom {
     @Column(name = "createrid")
     private String createrId;
 
+    //操作指令
+    private int comm;
+
     //玩家集合
     private ArrayList<Guser> guserList;
     /**
