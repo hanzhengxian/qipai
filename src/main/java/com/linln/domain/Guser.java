@@ -32,7 +32,11 @@ public class Guser {
     @Column(name = "comm")
     private int comm ;
 
+    @Column(name = "inpage")
+    private int inpage = 0;//前端页面选择
 
+//    @Column(name = "roomid")
+//    private String roomid;
 
     @Override
     public String toString() {

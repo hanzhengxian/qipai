@@ -47,8 +47,11 @@ public class GameRoom {
     //操作指令
     private int comm;
 
+    @Column(name = "page")
+    private int inpage = 1;//前端页面选择
+
     //玩家集合
-    private ArrayList<Guser> guserList;
+    private ArrayList<Guser> guserList = new ArrayList<>();
     /**
      * 最大游戏人数
      */
